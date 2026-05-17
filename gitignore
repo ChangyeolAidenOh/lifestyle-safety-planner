@@ -1,0 +1,27 @@
+# Data
+data/raw/
+data/processed/
+data/postgres/
+*.csv
+!data/sample/*.csv
+
+# Environment
+.env
+.venv/
+__pycache__/
+*.pyc
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+data/postgres/
+
+# Streamlit
+.streamlit/secrets.toml

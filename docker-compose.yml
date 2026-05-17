@@ -1,0 +1,16 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: safety_planner_db
+    environment:
+      POSTGRES_DB: safety_planner
+      POSTGRES_USER: sp_admin
+      POSTGRES_PASSWORD: sp_secret
+    ports:
+      - "5434:5432"
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+      - ./scripts/init_db.sql:/docker-entrypoint-initdb.d/01_init.sql
+    restart: unless-stopped
