@@ -6,6 +6,9 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 import streamlit as st
+from dashboard.tabs.tab1_safety_map import DISTRICT_COORDS
+
+DISTRICTS = list(DISTRICT_COORDS.keys())
 
 st.set_page_config(
     page_title="내 생활권 안전 체크",
@@ -16,8 +19,14 @@ st.set_page_config(
 
 # Sidebar
 st.sidebar.title("내 프로필")
-home_area = st.sidebar.text_input("거주지", value="강남구", key="home_area")
-work_area = st.sidebar.text_input("직장 소재지", value="종로구", key="work_area")
+home_area = st.sidebar.selectbox(
+    "거주지 (서울시)", DISTRICTS,
+    index=DISTRICTS.index("강남구"), key="home_area",
+)
+work_area = st.sidebar.selectbox(
+    "직장 소재지 (서울시)", DISTRICTS,
+    index=DISTRICTS.index("종로구"), key="work_area",
+)
 transport_mode = st.sidebar.selectbox(
     "주 이동수단",
     ["car", "subway", "bus", "walk", "bicycle"],

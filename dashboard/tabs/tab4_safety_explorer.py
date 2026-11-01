@@ -65,4 +65,4 @@ def render():
                         popup=f"{station}: PM2.5 평균 {pm25_val:.1f} ({label})",
                     ).add_to(m)
 
-    st_folium(m, width="100%", height=550)
+    st_folium(m, width="100%", height=550, returned_objects=[])

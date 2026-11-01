@@ -13,7 +13,7 @@ def make_base_map(location, zoom_start):
     if VWORLD_API_KEY:
         m = folium.Map(location=location, zoom_start=zoom_start, tiles=None)
         folium.TileLayer(
-            tiles=f"https://api.vworld.kr/req/wmts/1.0.0/{VWORLD_API_KEY}/gray/{{z}}/{{y}}/{{x}}.png",
+            tiles=f"https://api.vworld.kr/req/wmts/1.0.0/{VWORLD_API_KEY}/white/{{z}}/{{y}}/{{x}}.png",
             attr="© 국토교통부 V-World",
             name="V-World 배경지도",
         ).add_to(m)
@@ -39,10 +39,7 @@ DISTRICT_COORDS = {
 
 
 def geocode_district(name):
-    for district, coords in DISTRICT_COORDS.items():
-        if district in name or name in district:
-            return coords
-    return (37.5665, 126.9780)
+    return DISTRICT_COORDS[name]
 
 
 def render():
@@ -106,7 +103,7 @@ def render():
         med_group.add_to(m)
 
     folium.LayerControl().add_to(m)
-    st_folium(m, width="100%", height=500)
+    st_folium(m, width="100%", height=500, returned_objects=[])
 
     cols = st.columns(3)
     labels = [("양호", "#22c55e"), ("주의", "#eab308"), ("경고", "#ef4444")]

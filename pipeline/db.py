@@ -6,6 +6,7 @@ PostgreSQL used locally for development.
 
 import os
 import logging
+import streamlit as st
 from contextlib import contextmanager
 from pathlib import Path
 
@@ -48,7 +49,7 @@ def query_df(sql, params=None):
     with get_conn() as conn:
         return pd.read_sql(sql, conn, params=params)
 
-
+@st.cache_data
 def load_csv(name, subdir="sample"):
     """Load CSV from data directory.
 

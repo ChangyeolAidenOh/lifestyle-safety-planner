@@ -32,6 +32,11 @@ def load_all_datasets():
         "fire": load_csv("safety_fire"),
     }
 
+@st.cache_resource
+def get_explainer():
+    from pipeline.xgb_explainer import train_explainer
+    return train_explainer(load_all_datasets())
+
 
 def render():
     if not st.session_state.get("profile_submitted"):
@@ -122,7 +127,7 @@ def render():
     try:
         from pipeline.xgb_explainer import train_explainer, explain_district, get_shap_bar_data
 
-        model, explainer, features_df = train_explainer(datasets)
+        model, explainer, features_df = get_explainer()
         if model is not None:
             from pipeline.safety_scorer import match_district
 
