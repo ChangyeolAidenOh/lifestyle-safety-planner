@@ -5,6 +5,21 @@ import folium
 from streamlit_folium import st_folium
 
 from pipeline.db import load_csv
+from config import VWORLD_API_KEY
+
+
+def make_base_map(location, zoom_start):
+    """V-World 회색 배경지도. 키가 없으면 OSM으로 대체."""
+    if VWORLD_API_KEY:
+        m = folium.Map(location=location, zoom_start=zoom_start, tiles=None)
+        folium.TileLayer(
+            tiles=f"https://api.vworld.kr/req/wmts/1.0.0/{VWORLD_API_KEY}/gray/{{z}}/{{y}}/{{x}}.png",
+            attr="© 국토교통부 V-World",
+            name="V-World 배경지도",
+        ).add_to(m)
+    else:
+        m = folium.Map(location=location, zoom_start=zoom_start, tiles="OpenStreetMap")
+    return m
 
 DISTRICT_COORDS = {
     "종로구": (37.5735, 126.9790), "중구": (37.5641, 126.9979),
@@ -44,7 +59,7 @@ def render():
     center_lat = (home_coords[0] + work_coords[0]) / 2
     center_lng = (home_coords[1] + work_coords[1]) / 2
 
-    m = folium.Map(location=[center_lat, center_lng], zoom_start=12, tiles="cartodbpositron")
+    m = make_base_map([center_lat, center_lng], 12)
 
     folium.Marker(
         location=home_coords,

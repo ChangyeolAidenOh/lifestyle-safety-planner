@@ -33,6 +33,7 @@ ANTHROPIC_MODEL = os.getenv("ANTHROPIC_MODEL", "claude-haiku-4-5-20251001")
 # Public Data API Keys
 DATA_GO_KR_API_KEY = os.getenv("DATA_GO_KR_API_KEY", "")
 AIRKOREA_API_KEY = os.getenv("AIRKOREA_API_KEY", "")
+VWORLD_API_KEY = os.getenv("VWORLD_API_KEY", "")
 
 # Safety scoring weights (time-weighted average)
 LOCATION_WEIGHTS = {

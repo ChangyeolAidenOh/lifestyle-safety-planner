@@ -6,7 +6,7 @@ from streamlit_folium import st_folium
 from folium.plugins import HeatMap
 
 from pipeline.db import load_csv
-from dashboard.tabs.tab1_safety_map import DISTRICT_COORDS
+from dashboard.tabs.tab1_safety_map import DISTRICT_COORDS, make_base_map
 
 
 def render():
@@ -18,9 +18,7 @@ def render():
         key="explorer_layer",
     )
 
-    m = folium.Map(
-        location=[37.5665, 126.9780], zoom_start=11, tiles="cartodbpositron",
-    )
+    m = make_base_map([37.5665, 126.9780], 11)
 
     if layer == "교통사고 다발지":
         df = load_csv("safety_traffic")
